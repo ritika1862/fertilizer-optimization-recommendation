@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fertilizer Optimizer</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7f4;color:#222}header{background:#fff;padding:25px 40px 15px;border-bottom:1px solid #ddd}.logo{font-size:32px;font-weight:bold;color:#245c2a}.subtitle{margin-top:8px;color:#666;font-size:17px}nav{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}nav button{border:1px solid #aaa;background:#eeeef5;padding:9px 15px;color:#333;border-radius:4px;cursor:pointer;font-size:14px}nav button:hover,nav button.active{background:#dfe9df}.logout{color:#a00000!important}main{max-width:1000px;margin:35px auto;padding:0 25px}h1{font-size:38px;margin-bottom:10px}.intro{color:#666;font-size:17px;margin-bottom:30px}.user-box,.card,.section-card{background:#fff;padding:25px;border-radius:10px;margin-bottom:25px;box-shadow:0 2px 10px rgba(0,0,0,.08)}.card h2,.section-card h2{margin-top:0;color:#245c2a}.description{color:#666;margin-bottom:25px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{display:flex;flex-direction:column}label{font-weight:bold;margin-bottom:7px}input,select{padding:11px;border:1px solid #aaa;border-radius:5px;font-size:15px}input:focus,select:focus{outline:none;border-color:#3b8d45}.generate-btn{margin-top:25px;padding:13px 22px;border:0;border-radius:6px;background:#287a36;color:#fff;font-size:16px;cursor:pointer;width:100%}.generate-btn:disabled{background:#888}.result{display:none;margin-top:25px;padding:20px;border-radius:8px;background:#eaf6eb;border:1px solid #8bc58f}.fertilizer-name{font-size:25px;font-weight:bold;color:#176b24}.error{display:none;margin-top:20px;padding:15px;border-radius:6px;background:#ffeaea;border:1px solid #e29b9b;color:#9b0000}.hidden{display:none}.table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse}.data-table th,.data-table td{padding:10px;border:1px solid #ddd;text-align:left;white-space:nowrap}.data-table th{background:#eaf2ea}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.stat-card{background:#eef7ee;border-radius:8px;padding:20px;text-align:center}.stat-card h3{font-size:28px;margin:0 0 8px;color:#287a36}.muted{color:#666}.loading{text-align:center;padding:25px}.health-score{display:flex;align-items:center;gap:25px;flex-wrap:wrap}.score-circle{width:130px;height:130px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eaf6eb;border:10px solid #72ad78;font-size:30px;font-weight:bold;color:#176b24}.bar{height:14px;background:#e6e6e6;border-radius:8px;overflow:hidden;margin:6px 0 14px}.bar span{display:block;height:100%;background:#287a36}.insight{padding:14px;background:#f4f8f4;border-left:4px solid #287a36;margin:10px 0}.report-btn{padding:11px 18px;border:0;border-radius:6px;background:#287a36;color:#fff;cursor:pointer;margin-top:15px}.back{margin-top:15px;padding:10px 16px;border:0;border-radius:5px;background:#287a36;color:#fff;cursor:pointer}footer{text-align:center;margin-top:50px;padding:25px;background:#fff;border-top:1px solid #ddd;color:#666}@media(max-width:650px){.form-grid,.stats-grid{grid-template-columns:1fr}h1{font-size:30px}main{padding:0 15px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🌱 Fertilizer Optimizer</div>
+<div class="subtitle">ML Recommendation System</div>
+<nav>
+<button class="nav-btn active" data-section="recommendation" onclick="showSection('recommendation',this)">🧪 Recommendation</button>
+<button class="nav-btn" data-section="history" onclick="showSection('history',this)">📋 History</button>
+<button class="nav-btn" data-section="statistics" onclick="showSection('statistics',this)">📊 Statistics</button>
+<button class="nav-btn" data-section="dataset" onclick="showSection('dataset',this)">🗂️ Dataset</button>
+<button class="nav-btn" data-section="soilhealth" onclick="showSection('soilhealth',this)">🌱 Soil Health</button>
+<button class="nav-btn" onclick="window.location.href='/ai-assistant'">🤖 AI Assistant</button>
+<button class="nav-btn logout" onclick="window.location.href='/'">🚪 Logout</button>
+</nav>
+</header>
+<main>
+<h1>Fertilizer Recommendation</h1>
+<p class="intro">Analyze soil conditions and get an intelligent recommendation.</p>
+<div class="user-box">👤 <strong id="userName">User</strong><br><span id="userEmail">user@gmail.com</span></div>
+
+<section id="recommendation" class="section-card">
+<h2>🧪 Soil &amp; Crop Analysis</h2><p class="description">Enter the available soil information below.</p>
+<form id="recommendationForm">
+<div class="form-grid">
+<div class="field"><label for="crop">Crop</label><select id="crop" required><option value="">Select Crop</option><option>Wheat</option><option>Rice</option><option>Maize</option><option>Cotton</option><option>Sugarcane</option><option>Potato</option><option>Tomato</option><option>Soybean</option></select></div>
+<div class="field"><label for="nitrogen">Nitrogen (N)</label><input id="nitrogen" type="number" step="any" placeholder="e.g. 40" required></div>
+<div class="field"><label for="phosphorus">Phosphorus (P)</label><input id="phosphorus" type="number" step="any" placeholder="e.g. 30" required></div>
+<div class="field"><label for="potassium">Potassium (K)</label><input id="potassium" type="number" step="any" placeholder="e.g. 50" required></div>
+<div class="field"><label for="ph">Soil pH</label><input id="ph" type="number" step="0.1" min="0" max="14" placeholder="e.g. 6.5" required></div>
+<div class="field"><label for="moisture">Soil Moisture</label><input id="moisture" type="number" step="any" placeholder="e.g. 35" required></div>
+<div class="field"><label for="organic_carbon">Organic Carbon</label><input id="organic_carbon" type="number" step="any" placeholder="e.g. 1.5" required></div>
+<div class="field"><label for="temperature">Temperature °C</label><input id="temperature" type="number" step="any" placeholder="e.g. 25" required></div>
+<div class="field"><label for="humidity">Humidity %</label><input id="humidity" type="number" step="any" placeholder="e.g. 60" required></div>
+</div>
+<button class="generate-btn" id="generateButton" type="submit">🤖 Generate Fertilizer Recommendation</button>
+</form>
+<div id="result" class="result"><h3>🌱 Recommended Fertilizer</h3><div class="fertilizer-name" id="fertilizerName">-</div><p id="resultMessage"></p></div>
+<div id="error" class="error"></div>
+</section>
+
+<section id="history" class="section-card hidden"><h2>📋 Recommendation History</h2><div id="historyContent" class="loading">Loading history...</div></section>
+<section id="statistics" class="section-card hidden"><h2>📊 Statistics</h2><div id="statisticsContent" class="loading">Loading statistics...</div></section>
+<section id="dataset" class="section-card hidden"><h2>🗂️ Dataset</h2><div id="datasetContent" class="loading">Loading dataset...</div></section>
+<section id="soilhealth" class="section-card hidden"><h2>🌱 Smart Soil Health</h2><p class="description">A quick health score based on the soil values you entered. This is a project demo indicator, not a laboratory soil test.</p><div id="soilHealthContent"><p class="muted">Generate a recommendation first, then open Soil Health.</p></div></section>
+</main>
+<footer>🌱 Fertilizer Optimization Recommender<br><br>Machine Learning Based Agricultural Decision Support System</footer>
+<script>
+const $=id=>document.getElementById(id);
+function hideSections(){['recommendation','history','statistics','dataset','soilhealth'].forEach(id=>$(id).classList.add('hidden'));}
+function showSection(name,button){hideSections();$(name).classList.remove('hidden');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));if(button)button.classList.add('active');if(name==='history')loadHistory();if(name==='statistics')loadStatistics();if(name==='dataset')loadDataset();if(name==='soilhealth')loadSoilHealth();}
+async function loadUser(){try{const r=await fetch('/api/me');const d=await r.json();if(d.success&&d.user){$('userName').textContent=d.user.name||'User';$('userEmail').textContent=d.user.email||'';}}catch(e){}}
+$('recommendationForm').addEventListener('submit',async e=>{e.preventDefault();const b=$('generateButton');$('result').style.display='none';$('error').style.display='none';b.disabled=true;b.textContent='⏳ Generating Recommendation...';const data={crop:$('crop').value,nitrogen:Number($('nitrogen').value),phosphorus:Number($('phosphorus').value),potassium:Number($('potassium').value),ph:Number($('ph').value),moisture:Number($('moisture').value),organic_carbon:Number($('organic_carbon').value),temperature:Number($('temperature').value),humidity:Number($('humidity').value)};try{const r=await fetch('/api/recommend',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const d=await r.json();if(!r.ok||!d.success)throw new Error(d.message||'Recommendation failed');$('fertilizerName').textContent=d.fertilizer||d.recommendation||'Unknown';$('resultMessage').textContent=`For ${data.crop}, the system recommends ${d.fertilizer||d.recommendation} based on the entered soil conditions.`;$('result').style.display='block';window.lastRecommendation={...data,fertilizer:d.fertilizer||d.recommendation||'Unknown'};loadSoilHealth();}catch(err){$('error').textContent='❌ Error: '+err.message;$('error').style.display='block';}finally{b.disabled=false;b.textContent='🤖 Generate Fertilizer Recommendation';}});
+async function loadHistory(){const c=$('historyContent');c.innerHTML='<div class="loading">Loading history...</div>';try{const r=await fetch('/api/history');const d=await r.json();if(!r.ok||!d.success)throw new Error(d.message||'Could not load history');const rows=d.history||[];if(!rows.length){c.innerHTML='<p class="muted">No recommendations yet. Generate one first.</p>';return;}c.innerHTML='<div class="table-wrap"><table class="data-table"><thead><tr><th>ID</th><th>Crop</th><th>N</th><th>P</th><th>K</th><th>pH</th><th>Moisture</th><th>Organic Carbon</th><th>Temperature</th><th>Humidity</th><th>Fertilizer</th><th>Date</th></tr></thead><tbody>'+rows.map(x=>`<tr><td>${x.id??''}</td><td>${x.crop??''}</td><td>${x.nitrogen??''}</td><td>${x.phosphorus??''}</td><td>${x.potassium??''}</td><td>${x.ph??''}</td><td>${x.moisture??''}</td><td>${x.organic_carbon??''}</td><td>${x.temperature??''}</td><td>${x.humidity??''}</td><td><strong>${x.fertilizer??''}</strong></td><td>${x.created_at??''}</td></tr>`).join('')+'</tbody></table></div>';}catch(e){c.innerHTML='<div class="error" style="display:block">❌ '+e.message+'</div>';}}
+async function loadStatistics(){const c=$('statisticsContent');c.innerHTML='<div class="loading">Loading statistics...</div>';try{const r=await fetch('/api/statistics');const d=await r.json();if(!r.ok||!d.success)throw new Error(d.message||'Could not load statistics');const list=d.fertilizers||[];const most=list.length?list[0].fertilizer:'N/A';c.innerHTML=`<div class="stats-grid"><div class="stat-card"><h3>${d.total_recommendations??0}</h3><p>Total Recommendations</p></div><div class="stat-card"><h3>${list.length}</h3><p>Fertilizer Types</p></div><div class="stat-card"><h3>${most}</h3><p>Most Recommended</p></div></div><br><div class="table-wrap"><table class="data-table"><thead><tr><th>Fertilizer</th><th>Count</th></tr></thead><tbody>${list.map(x=>`<tr><td>${x.fertilizer}</td><td>${x.count}</td></tr>`).join('')}</tbody></table></div>`;}catch(e){c.innerHTML='<div class="error" style="display:block">❌ '+e.message+'</div>';}}
+async function loadDataset(){const c=$('datasetContent');c.innerHTML='<div class="loading">Loading dataset...</div>';try{const [infoR,dataR]=await Promise.all([fetch('/api/dataset-info'),fetch('/api/dataset')]);const info=await infoR.json();const data=await dataR.json();if(!info.success)throw new Error(info.message||'Could not load dataset info');const rows=data.data||[];c.innerHTML=`<p><strong>Rows:</strong> ${info.rows} &nbsp;&nbsp; <strong>Columns:</strong> ${info.columns}</p><p><strong>Columns:</strong> ${(info.column_names||[]).join(', ')}</p>`+(rows.length?'<div class="table-wrap"><table class="data-table"><thead><tr>'+Object.keys(rows[0]).map(k=>`<th>${k}</th>`).join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+Object.keys(rows[0]).map(k=>`<td>${row[k]??''}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>':'<p>No dataset rows available.</p>');}catch(e){c.innerHTML='<div class="error" style="display:block">❌ '+e.message+'</div>';}}
+function loadSoilHealth(){
+ const c=$('soilHealthContent'); const x=window.lastRecommendation;
+ if(!x){c.innerHTML='<p class="muted">Generate a recommendation first, then open Soil Health.</p>';return;}
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const n=Number(x.nitrogen), p=Number(x.phosphorus), k=Number(x.potassium), ph=Number(x.ph), m=Number(x.moisture), oc=Number(x.organic_carbon), t=Number(x.temperature), h=Number(x.humidity);
+ const nutrientScore=(v,target)=>clamp(100-Math.abs(v-target)/target*100,0,100);
+ const ns=nutrientScore(n,40), ps=nutrientScore(p,30), ks=nutrientScore(k,40);
+ const phs=clamp(100-Math.abs(ph-6.5)*22,0,100), ms=clamp(100-Math.abs(m-40)*2,0,100), ocs=clamp(oc/2*100,0,100);
+ const score=Math.round((ns+ps+ks+phs+ms+ocs)/6);
+ const label=score>=80?'Excellent':score>=65?'Good':score>=50?'Moderate':'Needs Improvement';
+ const phNote=ph<5.5?'Soil is acidic. Consider soil testing and suitable amendments.':ph>7.5?'Soil is alkaline. Consider soil testing and suitable nutrient management.':'pH is in a generally suitable range.';
+ const rec=x.fertilizer;
+ const why=`The model recommended ${rec} for ${x.crop} using the soil and crop values entered. The score below is a separate visual health indicator for your project demo.`;
+ c.innerHTML=`<div class="health-score"><div class="score-circle">${score}</div><div><h3>${label} Soil Health</h3><p>Nutrient balance and basic soil-condition indicator.</p><p><strong>Crop:</strong> ${x.crop} &nbsp; <strong>Recommended:</strong> ${rec}</p></div></div><hr><h3>📊 Nutrient & Soil Indicators</h3><p>Nitrogen (${n})</p><div class="bar"><span style="width:${ns}%"></span></div><p>Phosphorus (${p})</p><div class="bar"><span style="width:${ps}%"></span></div><p>Potassium (${k})</p><div class="bar"><span style="width:${ks}%"></span></div><p>pH (${ph})</p><div class="bar"><span style="width:${phs}%"></span></div><p>Moisture (${m})</p><div class="bar"><span style="width:${ms}%"></span></div><p>Organic Carbon (${oc})</p><div class="bar"><span style="width:${ocs}%"></span></div><div class="insight">💡 <strong>Why this recommendation?</strong><br>${why}</div><div class="insight">🧪 <strong>pH insight:</strong> ${phNote}</div><div class="insight">🌡️ <strong>Environment:</strong> Temperature ${t}°C and humidity ${h}% were included in your input and can be considered alongside soil conditions.</div><button class="report-btn" onclick="downloadReport()">📄 Download This Test Report</button>`;
+}
+function downloadReport(){
+ const x=window.lastRecommendation;if(!x)return;
+ const text=`FERTILIZER OPTIMIZER - TEST REPORT\n================================\nCrop: ${x.crop}\nNitrogen: ${x.nitrogen}\nPhosphorus: ${x.phosphorus}\nPotassium: ${x.potassium}\nSoil pH: ${x.ph}\nSoil Moisture: ${x.moisture}\nOrganic Carbon: ${x.organic_carbon}\nTemperature: ${x.temperature} C\nHumidity: ${x.humidity}%\nRecommended Fertilizer: ${x.fertilizer}\n\nGenerated by Fertilizer Optimization Recommender.`;
+ const blob=new Blob([text],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fertilizer_test_report.txt';a.click();URL.revokeObjectURL(a.href);
+}
+loadUser();
+const hash=location.hash.replace('#','');if(['history','statistics','dataset','soilhealth'].includes(hash)){const btn=document.querySelector(`[data-section="${hash}"]`);showSection(hash,btn);}else{showSection('recommendation',document.querySelector('[data-section="recommendation"]'));}
+</script>
+</body>
+</html>

@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart | Fertilizer Optimization</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f4;
+            color: #18321f;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ================= LOGIN ================= */
+
+        #authPage {
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #0d3b22, #176b3a, #70ad47);
+        }
+
+        .auth-left {
+            width: 52%;
+            color: white;
+            padding: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .logo span {
+            color: #b9ef8b;
+        }
+
+        .auth-left h1 {
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .auth-left p {
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 600px;
+            color: #e1f4e3;
+        }
+
+        .feature-list {
+            margin-top: 35px;
+        }
+
+        .feature {
+            margin: 14px 0;
+            font-size: 16px;
+        }
+
+        .auth-right {
+            width: 48%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .auth-box {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .auth-box h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .auth-box .subtitle {
+            color: #718078;
+            margin-bottom: 28px;
+        }
+
+        .tabs {
+            display: flex;
+            background: #edf4ed;
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 25px;
+        }
+
+        .tab {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #52705a;
+        }
+
+        .tab.active {
+            background: white;
+            color: #176b3a;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        .input-group {
+            margin-bottom: 17px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d6e1d7;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #29904e;
+            box-shadow: 0 0 0 3px #29904e18;
+        }
+
+        .primary-btn {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            background: #176b3a;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .primary-btn:hover {
+            background: #0e572c;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 11px;
+            border-radius: 8px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .message.success {
+            display: block;
+            background: #e5f7e9;
+            color: #176b3a;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffe8e8;
+            color: #b42318;
+        }
+
+        /* ================= DASHBOARD ================= */
+
+        #dashboard {
+            min-height: 100vh;
+        }
+
+        .navbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e2eae3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-logo {
+            font-size: 23px;
+            font-weight: 800;
+            color: #176b3a;
+        }
+
+        .nav-logo span {
+            color: #76ad42;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .logout {
+            border: 1px solid #176b3a;
+            background: white;
+            color: #176b3a;
+            padding: 9px 17px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #e5f6e5, #f7fbf5);
+            padding: 55px 7%;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            color: #123f23;
+        }
+
+        .hero p {
+            color: #627066;
+            font-size: 17px;
+        }
+
+        .container {
+            width: 86%;
+            max-width: 1200px;
+            margin: 35px auto 70px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.3fr .7fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2eae3;
+            border-radius: 18px;
+            padding: 27px;
+            box-shadow: 0 5px 20px #1a49200a;
+        }
+
+        .card h2 {
+            margin-bottom: 6px;
+            color: #174a29;
+        }
+
+        .card-description {
+            color: #718078;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .recommend-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #176b3a, #2d914e);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .recommend-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        /* ================= RESULT ================= */
+
+        .result-card {
+            margin-top: 25px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #0e4f2b, #238449);
+            color: white;
+            padding: 30px;
+            display: none;
+        }
+
+        .result-card.show {
+            display: block;
+        }
+
+        .result-label {
+            color: #bcebbf;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fertilizer-name {
+            font-size: 36px;
+            font-weight: 800;
+            margin: 7px 0 15px;
+        }
+
+        .result-text {
+            color: #e3f7e6;
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 25px;
+        }
+
+        .stat {
+            background: #ffffff15;
+            border: 1px solid #ffffff20;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .stat small {
+            display: block;
+            color: #bcebbf;
+            margin-bottom: 4px;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-card {
+            margin-top: 25px;
+        }
+
+        .info-card p {
+            line-height: 1.7;
+            color: #627066;
+            margin-top: 12px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: #f2f8f2;
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .info-box strong {
+            display: block;
+            font-size: 22px;
+            color: #176b3a;
+        }
+
+        .info-box span {
+            color: #718078;
+            font-size: 13px;
+        }
+
+        /* ================= HISTORY ================= */
+
+        .history {
+            margin-top: 25px;
+        }
+
+        .history-item {
+            border: 1px solid #e1e9e2;
+            padding: 17px;
+            border-radius: 12px;
+            margin-top: 12px;
+            background: #fbfdfb;
+        }
+
+        .history-item strong {
+            color: #176b3a;
+        }
+
+        .history-item small {
+            display: block;
+            color: #7b877e;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background: #103c21;
+            color: #d5ead9;
+            text-align: center;
+            padding: 28px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 850px) {
+            .auth-left {
+                display: none;
+            }
+
+            .auth-right {
+                width: 100%;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .user-name {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     AUTHENTICATION PAGE
+===================================================== -->
+
+<section id="authPage">
+
+    <div class="auth-left">
+
+        <div class="logo">
+            🌱 Agri<span>Smart</span>
+        </div>
+
+        <h1>
+            Intelligent Fertilizer
+            Optimization
+        </h1>
+
+        <p>
+            Make smarter agricultural decisions using machine learning,
+            soil information and crop data.
+        </p>
+
+        <div class="feature-list">
+            <div class="feature">✓ Machine Learning based recommendation</div>
+            <div class="feature">✓ Soil nutrient analysis</div>
+            <div class="feature">✓ Personalized fertilizer suggestions</div>
+            <div class="feature">✓ Recommendation history</div>
+        </div>
+
+    </div>
+
+    <div class="auth-right">
+
+        <div class="auth-box">
+
+            <h2>Welcome</h2>
+            <p class="subtitle">
+                Sign in to access your fertilizer optimization dashboard.
+            </p>
+
+            <div class="tabs">
+
+                <button
+                    class="tab active"
+                    id="loginTab"
+                    onclick="showLogin()">
+                    Login
+                </button>
+
+                <button
+                    class="tab"
+                    id="signupTab"
+                    onclick="showSignup()">
+                    Sign Up
+                </button>
+
+            </div>
+
+            <!-- LOGIN -->
+
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required>
+                </div>
+
+                <button class="primary-btn" type="submit">
+                    Sign In
+                </button>
+
+            </form>
+
+            <!-- SIGNUP -->
+
+            <form id="signupForm" class="hidden">
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input
+                        type="text"
+                        id="signupName"
+                        placeholder="Enter your full name"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        placeholder="Create a password"
+                        required>
+                </div>
+
+                <button class="primary-btn" type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <div id="authMessage" class="message"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard" class="hidden">
+
+    <nav class="navbar">
+
+        <div class="nav-logo">
+            🌱 Agri<span>Smart</span>
+        </div>
+
+        <div class="nav-right">
+
+            <span class="user-name" id="userName">
+                User
+            </span>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <section class="hero">
+
+        <h1>Fertilizer Optimization Dashboard</h1>
+
+        <p>
+            Enter your soil and crop information to receive
+            an intelligent fertilizer recommendation.
+        </p>
+
+    </section>
+
+
+    <main class="container">
+
+        <div class="grid">
+
+            <!-- INPUT CARD -->
+
+            <div class="card">
+
+                <h2>🌱 Soil & Crop Information</h2>
+
+                <p class="card-description">
+                    Provide the current soil nutrient values and crop details.
+                </p>
+
+                <form id="recommendForm">
+
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label>Crop</label>
+
+                            <select id="crop" required>
+                                <option value="">Select Crop</option>
+                                <option>Wheat</option>
+                                <option>Rice</option>
+                                <option>Maize</option>
+                                <option>Cotton</option>
+                                <option>Potato</option>
+                                <option>Tomato</option>
+                                <option>Sugarcane</option>
+                                <option>Canal</option>
+                                <option>Groundnut</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+
+                        <div class="input-group">
+                            <label>Soil pH</label>
+
+                            <input
+                                type="number"
+                                id="ph"
+                                min="0"
+                                max="14"
+                                step="0.1"
+                                value="6.5"
+                                required>
+                        </div>
+
+
+                        <div class="input-group">
+                            <label>Nitrogen (N)</label>
+
+                            <input
+                                type="number"
+                                id="nitrogen"
+                                min="0"
+                                step="0.1"
+                                value="50"
+                                required>
+                        </div>
+
+
+                        <div class="input-group">
+                            <label>Phosphorus (P)</label>
+
+                            <input
+                                type="number"
+                                id="phosphorus"
+                                min="0"
+                                step="0.1"
+                                value="50"
+                                required>
+                        </div>
+
+
+                        <div class="input-group">
+                            <label>Potassium (K)</label>
+
+                            <input
+                                type="number"
+                                id="potassium"
+                                min="0"
+                                step="0.1"
+                                value="50"
+                                required>
+                        </div>
+
+
+                        <div class="input-group">
+                            <label>Budget (₹)</label>
+
+                            <input
+                                type="number"
+                                id="budget"
+                                min="0"
+                                step="100"
+                                value="2000"
+                                required>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="recommend-btn"
+                        id="recommendBtn">
+
+                        🔍 Generate Fertilizer Recommendation
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- SYSTEM INFO -->
+
+            <div class="card">
+
+                <h2>📊 System Information</h2>
+
+                <p class="card-description">
+                    Machine learning system status
+                </p>
+
+                <div class="info-grid">
+
+                    <div class="info-box">
+                        <strong id="datasetRows">--</strong>
+                        <span>Dataset Records</span>
+                    </div>
+
+                    <div class="info-box">
+                        <strong id="datasetColumns">--</strong>
+                        <span>Features</span>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Random Forest</strong>
+                        <span>ML Algorithm</span>
+                    </div>
+
+                </div>
+
+                <div style="margin-top:25px">
+
+                    <p>
+                        <b>Model:</b>
+                        Random Forest Classification
+                    </p>
+
+                    <p>
+                        <b>Purpose:</b>
+                        Fertilizer recommendation based on
+                        crop and soil parameters.
+                    </p>
+
+                    <p>
+                        <b>Backend:</b>
+                        Flask REST API
+                    </p>
+
+                    <p>
+                        <b>Database:</b>
+                        SQLite
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div id="resultCard" class="result-card">
+
+            <div class="result-label">
+                Recommended Fertilizer
+            </div>
+
+            <div
+                class="fertilizer-name"
+                id="fertilizerName">
+                —
+            </div>
+
+            <div
+                class="result-text"
+                id="resultMessage">
+                Your recommendation will appear here.
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+                    <small>Crop</small>
+                    <b id="resultCrop">—</b>
+                </div>
+
+                <div class="stat">
+                    <small>Nitrogen</small>
+                    <b id="resultN">—</b>
+                </div>
+
+                <div class="stat">
+                    <small>Phosphorus</small>
+                    <b id="resultP">—</b>
+                </div>
+
+                <div class="stat">
+                    <small>Potassium</small>
+                    <b id="resultK">—</b>
+                </div>
+
+                <div class="stat">
+                    <small>Soil pH</small>
+                    <b id="resultPH">—</b>
+                </div>
+
+                <div class="stat">
+                    <small>Budget</small>
+                    <b id="resultBudget">—</b>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HISTORY -->
+
+        <div class="card history">
+
+            <h2>📋 Recommendation History</h2>
+
+            <p class="card-description">
+                Previous fertilizer recommendations generated by your account.
+            </p>
+
+            <div id="historyList">
+                Loading history...
+            </div>
+
+        </div>
+
+
+        <!-- ABOUT -->
+
+        <div class="card info-card">
+
+            <h2>💡 About the Recommendation System</h2>
+
+            <p>
+                AgriSmart uses a machine learning classification model
+                trained on fertilizer and soil-related agricultural data.
+                The system analyzes the submitted crop and soil parameters
+                and predicts the fertilizer most suitable for the given
+                conditions.
+            </p>
+
+            <p>
+                The recommendation is intended as a decision-support tool.
+                Actual fertilizer application should also consider
+                agricultural expert advice and local soil conditions.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+
+        🌱 AgriSmart — Fertilizer Optimization System
+
+        <br>
+
+        Machine Learning Project
+
+    </footer>
+
+</section>
+
+
+<script>
+
+    /*
+       ============================================================
+       CONFIGURATION
+       ============================================================
+    */
+
+    const API = "http://127.0.0.1:5000";
+
+
+    /*
+       ============================================================
+       COMMON API FUNCTION
+       ============================================================
+    */
+
+    async function apiRequest(url, options = {}) {
+
+        options.credentials = "include";
+
+        options.headers = {
+            "Content-Type": "application/json",
+            ...(options.headers || {})
+        };
+
+        const response = await fetch(API + url, options);
+
+        let data;
+
+        try {
+            data = await response.json();
+        } catch {
+            throw new Error("Invalid response from server.");
+        }
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                data.error ||
+                "Something went wrong."
+            );
+
+        }
+
+        return data;
+    }
+
+
+    /*
+       ============================================================
+       AUTH TABS
+       ============================================================
+    */
+
+    function showLogin() {
+
+        document.getElementById("loginForm")
+            .classList.remove("hidden");
+
+        document.getElementById("signupForm")
+            .classList.add("hidden");
+
+        document.getElementById("loginTab")
+            .classList.add("active");
+
+        document.getElementById("signupTab")
+            .classList.remove("active");
+
+        clearMessage();
+    }
+
+
+    function showSignup() {
+
+        document.getElementById("signupForm")
+            .classList.remove("hidden");
+
+        document.getElementById("loginForm")
+            .classList.add("hidden");
+
+        document.getElementById("signupTab")
+            .classList.add("active");
+
+        document.getElementById("loginTab")
+            .classList.remove("active");
+
+        clearMessage();
+    }
+
+
+    /*
+       ============================================================
+       MESSAGE
+       ============================================================
+    */
+
+    function showMessage(text, type) {
+
+        const box = document.getElementById("authMessage");
+
+        box.textContent = text;
+
+        box.className = "message " + type;
+    }
+
+
+    function clearMessage() {
+
+        const box = document.getElementById("authMessage");
+
+        box.textContent = "";
+
+        box.className = "message";
+    }
+
+
+    /*
+       ============================================================
+       SIGNUP
+       ============================================================
+    */
+
+    document.getElementById("signupForm")
+        .addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const name =
+            document.getElementById("signupName").value.trim();
+
+        const email =
+            document.getElementById("signupEmail").value.trim();
+
+        const password =
+            document.getElementById("signupPassword").value;
+
+        if (password.length < 6) {
+
+            showMessage(
+                "Password must contain at least 6 characters.",
+                "error"
+            );
+
+            return;
+        }
+
+        try {
+
+            const result = await apiRequest(
+                "/api/signup",
+                {
+                    method: "POST",
+
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        password: password
+                    })
+                }
+            );
+
+            showMessage(
+                result.message || "Account created successfully.",
+                "success"
+            );
+
+            document.getElementById("signupForm").reset();
+
+            setTimeout(() => {
+                showLogin();
+            }, 1000);
+
+        } catch (error) {
+
+            showMessage(error.message, "error");
+
+        }
+
+    });
+
+
+    /*
+       ============================================================
+       LOGIN
+       ============================================================
+    */
+
+    document.getElementById("loginForm")
+        .addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const email =
+            document.getElementById("loginEmail").value.trim();
+
+        const password =
+            document.getElementById("loginPassword").value;
+
+        try {
+
+            const result = await apiRequest(
+                "/api/login",
+                {
+                    method: "POST",
+
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                }
+            );
+
+            if (result.success) {
+
+                showDashboard(
+                    result.user
+                );
+
+            } else {
+
+                showMessage(
+                    result.message || "Login failed.",
+                    "error"
+                );
+
+            }
+
+        } catch (error) {
+
+            showMessage(error.message, "error");
+
+        }
+
+    });
+
+
+    /*
+       ============================================================
+       SHOW DASHBOARD
+       ============================================================
+    */
+
+    function showDashboard(user) {
+
+        document.getElementById("authPage")
+            .classList.add("hidden");
+
+        document.getElementById("dashboard")
+            .classList.remove("hidden");
+
+        if (user) {
+
+            document.getElementById("userName")
+                .textContent =
+                user.name ||
+                user.username ||
+                user.email ||
+                "User";
+
+        }
+
+        loadDatasetInfo();
+
+        loadHistory();
+
+    }
+
+
+    /*
+       ============================================================
+       CHECK SESSION
+       ============================================================
+    */
+
+    async function checkSession() {
+
+        try {
+
+            const result =
+                await apiRequest("/api/me");
+
+            if (
+                result.success &&
+                result.user
+            ) {
+
+                showDashboard(result.user);
+
+            }
+
+        } catch {
+
+            // User is not logged in.
+        }
+
+    }
+
+
+    /*
+       ============================================================
+       LOGOUT
+       ============================================================
+    */
+
+    async function logout() {
+
+        try {
+
+            await apiRequest(
+                "/api/logout",
+                {
+                    method: "POST"
+                }
+            );
+
+        } catch {
+
+            // Continue to login screen anyway.
+        }
+
+        document.getElementById("dashboard")
+            .classList.add("hidden");
+
+        document.getElementById("authPage")
+            .classList.remove("hidden");
+
+        document.getElementById("loginForm")
+            .reset();
+
+        showLogin();
+
+    }
+
+
+    /*
+       ============================================================
+       RECOMMENDATION
+       ============================================================
+    */
+
+    document.getElementById("recommendForm")
+        .addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const button =
+            document.getElementById("recommendBtn");
+
+        button.disabled = true;
+
+        button.textContent =
+            "⏳ Analyzing Soil Data...";
+
+        const crop =
+            document.getElementById("crop").value;
+
+        const nitrogen =
+            Number(document.getElementById("nitrogen").value);
+
+        const phosphorus =
+            Number(document.getElementById("phosphorus").value);
+
+        const potassium =
+            Number(document.getElementById("potassium").value);
+
+        const ph =
+            Number(document.getElementById("ph").value);
+
+        const budget =
+            Number(document.getElementById("budget").value);
+
+
+        try {
+
+            const result =
+                await apiRequest(
+                    "/api/recommend",
+                    {
+                        method: "POST",
+
+                        body: JSON.stringify({
+
+                            crop: crop,
+
+                            nitrogen: nitrogen,
+
+                            phosphorus: phosphorus,
+
+                            potassium: potassium,
+
+                            ph: ph,
+
+                            soil_ph: ph,
+
+                            budget: budget
+
+                        })
+                    }
+                );
+
+
+            if (!result.success) {
+
+                throw new Error(
+                    result.message ||
+                    "Unable to generate recommendation."
+                );
+
+            }
+
+
+            /*
+               The backend may return the fertilizer
+               under slightly different names.
+            */
+
+            const fertilizer =
+                result.recommended_fertilizer ||
+                result.fertilizer ||
+                result.recommendation ||
+                result.prediction ||
+                result.result ||
+                "Recommended Fertilizer";
+
+
+            document.getElementById("fertilizerName")
+                .textContent = fertilizer;
+
+
+            document.getElementById("resultMessage")
+                .textContent =
+                result.message ||
+                "The Random Forest machine learning model analyzed your soil and crop information and generated this fertilizer recommendation.";
+
+
+            document.getElementById("resultCrop")
+                .textContent = crop;
+
+            document.getElementById("resultN")
+                .textContent = nitrogen;
+
+            document.getElementById("resultP")
+                .textContent = phosphorus;
+
+            document.getElementById("resultK")
+                .textContent = potassium;
+
+            document.getElementById("resultPH")
+                .textContent = ph;
+
+            document.getElementById("resultBudget")
+                .textContent =
+                "₹ " + budget.toLocaleString("en-IN");
+
+
+            document.getElementById("resultCard")
+                .classList.add("show");
+
+
+            document.getElementById("resultCard")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+
+            loadHistory();
+
+
+        } catch (error) {
+
+            alert(
+                "Recommendation Error:\n\n" +
+                error.message
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "🔍 Generate Fertilizer Recommendation";
+
+        }
+
+    });
+
+
+    /*
+       ============================================================
+       DATASET INFORMATION
+       ============================================================
+    */
+
+    async function loadDatasetInfo() {
+
+        try {
+
+            const result =
+                await apiRequest(
+                    "/api/dataset-info"
+                );
+
+            if (result.success) {
+
+                document.getElementById("datasetRows")
+                    .textContent =
+                    result.rows ?? "--";
+
+                document.getElementById("datasetColumns")
+                    .textContent =
+                    result.columns ?? "--";
+
+            }
+
+        } catch {
+
+            document.getElementById("datasetRows")
+                .textContent = "--";
+
+            document.getElementById("datasetColumns")
+                .textContent = "--";
+
+        }
+
+    }
+
+
+    /*
+       ============================================================
+       HISTORY
+       ============================================================
+    */
+
+    async function loadHistory() {
+
+        const container =
+            document.getElementById("historyList");
+
+        try {
+
+            const result =
+                await apiRequest("/api/history");
+
+            if (!result.success) {
+
+                container.innerHTML =
+                    "<p>No history available.</p>";
+
+                return;
+            }
+
+
+            const records =
+                result.history ||
+                result.records ||
+                result.data ||
+                [];
+
+
+            if (!records.length) {
+
+                container.innerHTML =
+                    "<p>No recommendations yet. Generate your first recommendation above.</p>";
+
+                return;
+            }
+
+
+            container.innerHTML = "";
+
+
+            records.forEach(record => {
+
+                const fertilizer =
+                    record.recommended_fertilizer ||
+                    record.fertilizer ||
+                    record.recommendation ||
+                    record.prediction ||
+                    "Unknown";
+
+
+                const crop =
+                    record.crop ||
+                    "Unknown";
+
+
+                const date =
+                    record.created_at ||
+                    record.date ||
+                    record.timestamp ||
+                    "";
+
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "history-item";
+
+
+                item.innerHTML = `
+                    <strong>🌱 ${escapeHTML(fertilizer)}</strong>
+                    <div>Crop: ${escapeHTML(crop)}</div>
+                    <small>${escapeHTML(String(date))}</small>
+                `;
+
+
+                container.appendChild(item);
+
+            });
+
+
+        } catch {
+
+            container.innerHTML =
+                "<p>Unable to load recommendation history.</p>";
+
+        }
+
+    }
+
+
+    /*
+       ============================================================
+       SECURITY HELPER
+       ============================================================
+    */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+
+    }
+
+
+    /*
+       ============================================================
+       START APPLICATION
+       ============================================================
+    */
+
+    checkSession();
+
+</script>
+
+</body>
+</html>
